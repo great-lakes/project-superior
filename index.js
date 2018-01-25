@@ -1,8 +1,11 @@
-
 require('dotenv').config()
 var restify = require('restify')
 var builder = require('botbuilder')
 var azure = require('botbuilder-azure')
+
+// Require dialogs
+const greetingDialog = require('./src/dialogs/greeting')
+const azureCodeDialog = require('./src/dialogs/azureCode')
 
 // Setup Restify Server
 var server = restify.createServer()
@@ -30,8 +33,15 @@ server.post('/api/messages', connector.listen())
 // Receive messages from the user and respond by echoing each message back (prefixed with 'You said:')
 var bot = new builder.UniversalBot(connector).set('storage', tableStorage)
 
+// Register dialogs
+greetingDialog(bot)
+azureCodeDialog(bot)
+
 bot.dialog('/', [
   function (session, args, next) {
+    session.sendTyping()
     session.send('hello world')
+    session.beginDialog('greeting')
+    session.beginDialog('azureCode')
   }
 ])
