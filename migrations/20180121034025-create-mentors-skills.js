@@ -1,10 +1,10 @@
 exports.up = (db) =>
-db.createTable('mentor_skill', {
+db.createTable('mentors_skills', {
   'mentor_id': {type: 'int', primaryKey: true},
   'skill_id': {type: 'int', primaryKey: true}
 })
 .then((result) => {
-  db.addForeignKey('mentor_skill', 'mentors', 'mentor_skill_mentor_id_foreign',
+  db.addForeignKey('mentors_skills', 'mentors', 'mentors_skills_mentor_id_foreign',
     {
       'mentor_id': 'id'
     },
@@ -14,7 +14,7 @@ db.createTable('mentor_skill', {
     })
 })
 .then((result) => {
-  db.addForeignKey('mentor_skill', 'skills', 'mentor_skill_skill_id_foreign',
+  db.addForeignKey('mentors_skills', 'skills', 'mentors_skills_skill_id_foreign',
     {
       'skill_id': 'id'
     },
@@ -24,7 +24,7 @@ db.createTable('mentor_skill', {
     })
 })
 
-exports.down = (db) => db.dropTable('mentor_skill')
+exports.down = (db) => db.dropTable('mentors_skills')
 
 exports._meta = {
   'version': 1

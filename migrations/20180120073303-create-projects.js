@@ -11,7 +11,7 @@ exports.up = (db) => db.createTable('projects', {
       name: 'projects_hackathon_id_foreign',
       table: 'hackathons',
       rules: {
-        onDelete: 'CASCADE',
+        onDelete: 'RESTRICT',
         onUpdate: 'CASCADE'
       },
       mapping: 'id'

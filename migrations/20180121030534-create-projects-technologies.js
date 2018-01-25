@@ -1,11 +1,11 @@
 
 exports.up = (db) =>
-db.createTable('project_technology', {
+db.createTable('projects_technologies', {
   'project_id': {type: 'int', primaryKey: true},
   'technology_id': {type: 'int', primaryKey: true}
 })
 .then((result) => {
-  db.addForeignKey('project_technology', 'projects', 'project_technology_project_id_foreign',
+  db.addForeignKey('projects_technologies', 'projects', 'projects_technologies_project_id_foreign',
     {
       'project_id': 'id'
     },
@@ -15,7 +15,7 @@ db.createTable('project_technology', {
     })
 })
 .then((result) => {
-  db.addForeignKey('project_technology', 'technologies', 'project_technology_technology_id_foreign',
+  db.addForeignKey('projects_technologies', 'technologies', 'projects_technologies_technology_id_foreign',
     {
       'technology_id': 'id'
     },
@@ -25,7 +25,7 @@ db.createTable('project_technology', {
     })
 })
 
-exports.down = (db) => db.dropTable('project_technology')
+exports.down = (db) => db.dropTable('projects_technologies')
 
 exports._meta = {
   'version': 1

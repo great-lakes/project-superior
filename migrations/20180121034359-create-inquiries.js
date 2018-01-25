@@ -7,12 +7,12 @@ exports.up = (db) => db.createTable('inquiries', {
   is_resolved: 'boolean',
   student_id: {
     type: 'int',
-    notNull: true,
+    notNull: false,
     foreignKey: {
       name: 'inquiries_student_id_foreign',
       table: 'students',
       rules: {
-        onDelete: 'CASCADE',
+        onDelete: 'SET NULL',
         onUpdate: 'CASCADE'
       },
       mapping: 'id'
@@ -24,7 +24,7 @@ exports.up = (db) => db.createTable('inquiries', {
       name: 'inquiries_mentor_id_foreign',
       table: 'mentors',
       rules: {
-        onDelete: 'CASCADE',
+        onDelete: 'SET NULL',
         onUpdate: 'CASCADE'
       },
       mapping: 'id'
