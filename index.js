@@ -10,7 +10,7 @@ const azureCodeDialog = require('./src/dialogs/azureCode')
 // Setup Restify Server
 var server = restify.createServer({ name: 'HannaBot-Server' })
 server.listen(process.env.port || process.env.PORT || 3978, function () {
-  console.log('%s is listening to port %s', server.name, process.env.PORT)
+  console.log('%s is listening to port %s', server.name, process.env.PORT || 3978)
 })
 
 // Create chat connector for communicating with the Bot Framework Service
