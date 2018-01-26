@@ -30,15 +30,27 @@ exports.up = (db) => db.createTable('inquiries', {
         onUpdate: 'CASCADE'
       },
       mapping: 'id'
+    }},
+  skill_id: {
+    type: 'int',
+    notNull: false,
+    foreignKey: {
+      name: 'inquiries_skill_id_foreign',
+      table: 'skills',
+      rules: {
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE'
+      },
+      mapping: 'id'
     }}
 }).then(() => {
   if (process.env.ENV !== 'dev') {
     return
   }
   const dbName = 'inquiries'
-  const columns = ['created_at', 'updated_at', 'question', 'mentor_notes', 'is_resolved', 'student_id', 'mentor_id']
+  const columns = ['created_at', 'updated_at', 'question', 'mentor_notes', 'is_resolved', 'student_id', 'mentor_id', 'skill_id']
   const devSeedData = [
-    [ new Date().toISOString(), new Date().toISOString(), 'How do I use React?', 'Student needed to install nodejs', true, 1, 1 ]
+    [ new Date().toISOString(), new Date().toISOString(), 'How do I use React?', 'Student needed to install nodejs', true, 1, 1, 2 ]
   ]
   return dataSeederInserts(db, dbName, columns, devSeedData)
 })
