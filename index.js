@@ -30,7 +30,7 @@ var tableStorage = new azure.AzureBotStorage({gzipData: false}, azureTableClient
 // Listen for messages from users
 server.post('/api/messages', connector.listen())
 
-server.get(/\/?.*/, restify.serveStatic({
+server.get(/\/?.*/, restify.plugins.serveStatic({
   directory: './public',
   default: 'index.html'
 }))
