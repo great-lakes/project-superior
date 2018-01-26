@@ -9,4 +9,4 @@ This is the next iteration of the Hanna Bot geared towards engaging with student
 * Student Inquiry Tracking
 
 
-
+<img src="images/BotLogo.png" alt="Drawing" style="width: 100px;"/>  
