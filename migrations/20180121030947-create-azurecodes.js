@@ -1,3 +1,5 @@
+const {dataSeederInserts} = require('../support/migrationHelper')
+
 exports.up = (db) => db.createTable('azurecodes', {
   id: {type: 'int', primaryKey: true, autoIncrement: true},
   code: 'string',
@@ -26,6 +28,18 @@ exports.up = (db) => db.createTable('azurecodes', {
       },
       mapping: 'id'
     }}
+}).then(() => {
+  if (process.env.ENV !== 'dev') {
+    return
+  }
+  const dbName = 'azurecodes'
+  const columns = ['code', 'expires_on', 'project_id', 'hackathon_id']
+  const devSeedData = [
+    ['abc', '2018-03-01', 1, 1]
+    // ['def', '2018-03-01', null, 1],
+    // ['ghi', '2018-03-01', null, 1]
+  ]
+  return dataSeederInserts(db, dbName, columns, devSeedData)
 })
 
 exports.down = (db) => db.dropTable('azurecodes')

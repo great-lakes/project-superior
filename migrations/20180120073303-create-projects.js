@@ -1,3 +1,4 @@
+const {dataSeederInserts} = require('../support/migrationHelper')
 exports.up = (db) => db.createTable('projects', {
   id: {type: 'int', primaryKey: true, autoIncrement: true},
   name: 'string',
@@ -20,21 +21,19 @@ exports.up = (db) => db.createTable('projects', {
   if (process.env.ENV !== 'dev') {
     return
   }
-  return new Promise((resolve, reject) => {
-    db.insert('projects', ['name', 'description', 'created_at', 'updated_at', 'hackathon_id'], [
+  const dbName = 'projects'
+  const columns = ['name', 'description', 'created_at', 'updated_at', 'hackathon_id']
+  const devSeedData = [
+    [
       'Fire Fighting Robot',
       'A robot that will find a water source, and seek out fires to put out',
       new Date().toISOString(),
       new Date().toISOString(),
       1
-    ], (error) => {
-      if (error) {
-        reject(error)
-      } else {
-        resolve()
-      }
-    })
-  })
+    ]
+  ]
+
+  return dataSeederInserts(db, dbName, columns, devSeedData)
 })
 
 exports.down = (db) => db.dropTable('projects')

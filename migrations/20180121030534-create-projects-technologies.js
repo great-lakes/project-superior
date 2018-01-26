@@ -1,4 +1,4 @@
-
+const {dataSeederInserts} = require('../support/migrationHelper')
 exports.up = (db) =>
 db.createTable('projects_technologies', {
   'project_id': {type: 'int', primaryKey: true},
@@ -23,8 +23,21 @@ db.createTable('projects_technologies', {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE'
     })
-})
+}).then(() => {
+  if (process.env.ENV !== 'dev') {
+    return
+  }
 
+  const dbName = 'projects_technologies'
+  const columns = ['project_id', 'technology_id']
+  const devSeedData = [
+    [1, 1],
+    [1, 2],
+    [1, 4]
+  ]
+
+  return dataSeederInserts(db, dbName, columns, devSeedData)
+})
 exports.down = (db) => db.dropTable('projects_technologies')
 
 exports._meta = {
