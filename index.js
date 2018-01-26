@@ -30,6 +30,11 @@ var tableStorage = new azure.AzureBotStorage({gzipData: false}, azureTableClient
 // Listen for messages from users
 server.post('/api/messages', connector.listen())
 
+server.get('/', restify.serveStatic({
+  directory: __dirname,
+  default: '/index.html'
+ }));
+
 // Receive messages from the user and respond by echoing each message back (prefixed with 'You said:')
 var bot = new builder.UniversalBot(connector).set('storage', tableStorage)
 
