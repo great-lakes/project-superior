@@ -1,0 +1,26 @@
+{
+  "dev": {
+    "ENV": "DB_CONNECTION_STRING"
+  },
+  "test": {
+    "driver": "sqlite3",
+    "filename": ":memory:"
+  },
+  "prod": {
+    "ENV": "DB_CONNECTION_STRING"
+  },
+  "pg": {
+    "driver": "pg",
+    "user": "test",
+    "password": "test",
+    "host": "localhost",
+    "database": "mydb",
+    "schema": "my_schema"
+  },
+  "mongo": {
+    "driver": "mongodb",
+    "database": "my_db",
+    "host": "localhost"
+  },
+  "other": "postgres://uname:pw@server.com/dbname"
+}

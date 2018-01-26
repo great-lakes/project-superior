@@ -8,5 +8,10 @@ This is the next iteration of the Hanna Bot geared towards engaging with student
 * Project Tracking
 * Student Inquiry Tracking
 
-
+## Development - Getting Started
+### Database
+1. Install Postgres or MySQL
+1. Create a database
+1. duplicate .env.example to .env, and fill the DB_CONNECTION_STRING out
+2. run `npm run migrate up`
 
