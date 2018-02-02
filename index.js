@@ -7,7 +7,8 @@ var azure = require('botbuilder-azure')
 const greetingDialog = require('./src/dialogs/greeting')
 const azureCodeDialog = require('./src/dialogs/azureCode')
 
-const profanityDialog = require('./src/dialogs/profanity')
+
+const negativeCommentDialog = require('./src/dialogs/negativeComment')
 //
 
 // Setup Restify Server
@@ -45,7 +46,8 @@ var bot = new builder.UniversalBot(connector).set('storage', tableStorage)
 greetingDialog(bot)
 azureCodeDialog(bot)
 
-profanityDialog(bot)
+
+negativeCommentDialog(bot)
 //
 
 bot.dialog('/', [
@@ -55,7 +57,8 @@ bot.dialog('/', [
     session.beginDialog('greeting')
     session.beginDialog('azureCode')
 
-    session.beginDialog('profanity')
+    
+    session.beginDialog('negativeComment')
     //
   }
 ])
