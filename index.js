@@ -7,6 +7,9 @@ var azure = require('botbuilder-azure')
 const greetingDialog = require('./src/dialogs/greeting')
 const azureCodeDialog = require('./src/dialogs/azureCode')
 
+const profanityDialog = require('./src/dialogs/profanity')
+//
+
 // Setup Restify Server
 var server = restify.createServer({ name: 'HannaBot-Server' })
 server.listen(process.env.port || process.env.PORT || 3978, function () {
@@ -42,11 +45,17 @@ var bot = new builder.UniversalBot(connector).set('storage', tableStorage)
 greetingDialog(bot)
 azureCodeDialog(bot)
 
+profanityDialog(bot)
+//
+
 bot.dialog('/', [
   function (session, args, next) {
     session.sendTyping()
     session.send('hello world')
     session.beginDialog('greeting')
     session.beginDialog('azureCode')
+
+    session.beginDialog('profanity')
+    //
   }
 ])
