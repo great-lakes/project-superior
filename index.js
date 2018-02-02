@@ -6,6 +6,8 @@ var azure = require('botbuilder-azure')
 // Require dialogs
 const greetingDialog = require('./src/dialogs/greeting')
 const azureCodeDialog = require('./src/dialogs/azureCode')
+const noneDialog = require('./src/dialogs/none')
+//
 
 // Setup Restify Server
 var server = restify.createServer({ name: 'HannaBot-Server' })
@@ -41,6 +43,8 @@ var bot = new builder.UniversalBot(connector).set('storage', tableStorage)
 // Register dialogs
 greetingDialog(bot)
 azureCodeDialog(bot)
+noneDialog(bot)
+//
 
 bot.dialog('/', [
   function (session, args, next) {
@@ -48,5 +52,7 @@ bot.dialog('/', [
     session.send('hello world')
     session.beginDialog('greeting')
     session.beginDialog('azureCode')
+    session.noneDialog('none')
+    //
   }
 ])
