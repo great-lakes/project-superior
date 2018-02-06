@@ -9,6 +9,7 @@ module.exports = function (bot, dialog) {
   // require('../dialogs/negativeComment')(bot)
   // require('../dialogs/profanity')(bot)
   // require('../dialogs/endConvo')(bot)
+  require('../dialogs/mainMenu')(bot)
 
   dialog.matches('greeting', [
     function (session, args, next) {
@@ -20,6 +21,9 @@ module.exports = function (bot, dialog) {
   dialog.matches('botHelp', [
     function (session, args, next) {
       session.send('botHelp')
+      // Here's what I can do..
+      // Some examples...
+      // If you still need more help ask to see a main menu
     }
   ])
 
@@ -63,6 +67,14 @@ module.exports = function (bot, dialog) {
   dialog.matches('endConvo', [
     function (session, args, next) {
       session.send('endConvo')
+    }
+  ])
+
+  dialog.onDefault([
+    function (session, args, next) {
+      session.send('onDefault')
+      // Here's what I can do..
+      session.beginDialog('mainMenu')
     }
   ])
 }
