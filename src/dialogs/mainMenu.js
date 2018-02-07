@@ -21,28 +21,24 @@ module.exports = function (bot) {
       switch (args.response.index) {
         case 0: // Get Azure Code
           session.beginDialog('azureCode')
-          session.replaceDialog('isSatisfied')
           break
         case 1: // Get technology examples
           session.beginDialog('techHelp')
-          session.replaceDialog('isSatisfied')
           break
         case 2: // Learn about the team
           session.beginDialog('teamInfo')
-          session.replaceDialog('isSatisfied')
           break
         case 3: // Ask the team a question
           session.beginDialog('askQuestion')
-          session.replaceDialog('isSatisfied')
           break
         case 4: // Azure code Error
           session.beginDialog('azureCodeError')
-          session.replaceDialog('isSatisfied')
           break
         case 5: // Nevermind
           session.replaceDialog('endConvo')
-          break
+          return
       }
+      session.replaceDialog('isSatisfied')
     }
   ])
 }

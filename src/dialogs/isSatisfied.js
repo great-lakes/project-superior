@@ -13,9 +13,9 @@ module.exports = function (bot) {
         // prompt for a new question to be handled at root
         session.send('What else can I help you with?')
         session.endDialog()
-      } else {
-        session.replaceDialog('endConvo')
+        return
       }
+      session.replaceDialog('endConvo')
     }
   ])
 }
