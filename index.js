@@ -3,9 +3,8 @@ var restify = require('restify')
 var builder = require('botbuilder')
 var azure = require('botbuilder-azure')
 
-// Require dialogs
-const greetingDialog = require('./src/dialogs/greeting')
-const azureCodeDialog = require('./src/dialogs/azureCode')
+// Require LUIS dialog router
+const luisDialogRouter = require('./src/router/luisRouter')
 
 // Setup Restify Server
 var server = restify.createServer({ name: 'HannaBot-Server' })
@@ -35,18 +34,15 @@ server.get(/\/?.*/, restify.plugins.serveStatic({
   default: 'index.html'
 }))
 
-// Receive messages from the user and respond by echoing each message back (prefixed with 'You said:')
+// Initializing universal bot using the connector with bot state using table storage
 var bot = new builder.UniversalBot(connector).set('storage', tableStorage)
 
-// Register dialogs
-greetingDialog(bot)
-azureCodeDialog(bot)
+// Setup LUIS recognizer
+var luisRecognizer = new builder.LuisRecognizer(process.env.LUIS_MODEL_URL)
+var dialog = new builder.IntentDialog({recognizers: [luisRecognizer]})
 
-bot.dialog('/', [
-  function (session, args, next) {
-    session.sendTyping()
-    session.send('hello world')
-    session.beginDialog('greeting')
-    session.beginDialog('azureCode')
-  }
-])
+// Register LUIS dialog router
+luisDialogRouter(bot, dialog)
+
+// Root dialog
+bot.dialog('/', dialog)
