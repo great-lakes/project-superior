@@ -1,0 +1,8 @@
+module.exports = function (bot) {
+  bot.dialog('botHelp', [
+    function (session, args, next) {
+      session.send('Hello, you are in botHelp dialog!')
+      session.endDialog()
+    }
+  ])
+}
