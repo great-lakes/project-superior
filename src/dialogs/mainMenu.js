@@ -26,6 +26,7 @@ const choicesArr = [
     choiceText: 'Nevermind'
   }
 ]
+
 module.exports = function (bot) {
   bot.dialog('mainMenu', [
     function (session, args, next) {
