@@ -1,4 +1,4 @@
-// const function = require('../services/FUNCTION')
+const { getSurveyData } = require('../services/helper')
 
 module.exports = function (bot) {
   bot.dialog('showSurvey', [
@@ -7,7 +7,16 @@ module.exports = function (bot) {
       session.conversationData.completeSurvey = true
 
       // TODO pull from API: Prize and Link
-      // function().then((surveyObj))
+      // return getSurveyData()
+      // .then((surveyObj) => {
+      //   session.send('Here is the link to the survey: ' + surveyObj.link)
+      //   session.sendTyping()
+
+      //   let message = 'Thanks for taking the survey. You will be entered to win: ' + surveyObj.prize + '!\n\n'
+      //   message += 'We will notify the winner via email near the closing ceremony - Good Luck!'
+      //   session.send(message)
+      //   session.endDialog()
+      // })
       const surveyObj = {
         link: 'aka.ms/hackillinois18',
         prize: 'GoPro Hero 6',

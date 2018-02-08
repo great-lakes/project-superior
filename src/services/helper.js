@@ -1,6 +1,47 @@
 require('dotenv').config()
 const fetch = require('fetch')
 
+const url = process.env.GRAPHQL_API_URL
+
+const getSurveyData = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve({
+        link: 'aka.ms/hackillinois18',
+        prize: 'GoPro Hero 6',
+        promo: 'Complete our survey at aka.ms/hackillinois18 and you could win a GoPro Hero 6!'
+      })
+    }, 1000)
+  })
+  // return fetch(
+  // ).then(res => res.json())
+}
+
+const setStudentData = (studentData) => {
+// studentData.name
+// studentData.email
+// etc..
+}
+
+const isEmailUnique = (userEmail) => {
+  return fetch(
+    url,
+    {
+      method: 'POST',
+      body: JSON.stringify(userEmail),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  ).then(res => res.json())
+}
+const getAzureCode = () => {
+  return fetch(
+
+  ).then(res => res.json())
+  .then(azureCode => azureCode)
+}
+
 module.exports = {
   /**
    * Retrieve survey data
@@ -33,43 +74,4 @@ module.exports = {
    * @return {string} Promise
    */
   getAzureCode
-}
-
-const url = process.env.API_URL
-
-const getSurveyData = () => {
-  // TODO: correctly returning promise?
-  return new Promise((resolve, reject) => {
-    resolve(
-      fetch(
-
-      ).then(res => res.json())
-      .then(surveyData => surveyData)
-    )
-  })
-}
-
-const setStudentData = (studentData) => {
-// studentData.name
-// studentData.email
-// etc..
-}
-
-const isEmailUnique = (userEmail) => {
-  return fetch(
-    url,
-    {
-      method: 'POST',
-      body: JSON.stringify(userEmail),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }
-  ).then(res => res.json())
-}
-const getAzureCode = () => {
-  return fetch(
-
-  ).then(res => res.json())
-  .then(azureCode => azureCode)
 }
