@@ -33,9 +33,7 @@ module.exports = function (bot) {
       builder.Prompts.choice(
         session,
         'Select a choice',
-        choicesArr.map(item => {
-          return item.choiceText
-        })
+        choicesArr.map(item => item.choiceText)
       )
     },
     function (session, args, next) {
