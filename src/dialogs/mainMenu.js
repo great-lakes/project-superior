@@ -6,16 +6,24 @@ const choicesArr = [
     choiceText: 'Get Azure code'
   },
   {
-    dialogName: 'techHelp',
-    choiceText: 'Get technology help'
-  },
-  {
     dialogName: 'teamInfo',
     choiceText: 'Get to know the Microsoft Team'
   },
   {
+    dialogName: 'techHelp',
+    choiceText: 'Get technology help'
+  },
+  {
     dialogName: 'askQuestion',
     choiceText: 'Ask the team a question'
+  },
+  {
+    dialogName: 'qualifyingRules',
+    choiceText: 'See qualifying rules and prizes'
+  },
+  {
+    dialogName: 'showSurvey',
+    choiceText: 'Take the survey to enter raffle'
   },
   {
     dialogName: 'azureCodeError',

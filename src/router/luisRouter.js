@@ -7,6 +7,8 @@ module.exports = function (bot, dialog) {
   require('../dialogs/techHelp')(bot)
   require('../dialogs/azureCode')(bot)
   require('../dialogs/azureCodeError')(bot)
+  require('../dialogs/showSurvey')(bot)
+  require('../dialogs/qualifyingRules')(bot)
   require('../dialogs/negativeComment')(bot)
   require('../dialogs/profanity')(bot)
   require('../dialogs/endConvo')(bot)
@@ -22,9 +24,6 @@ module.exports = function (bot, dialog) {
   dialog.matches('botHelp', [
     function (session, args, next) {
       session.beginDialog('botHelp', args)
-      // Here's what I can do..
-      // Some examples...
-      session.beginDialog('mainMenu', args)
     }
   ])
 
@@ -59,6 +58,20 @@ module.exports = function (bot, dialog) {
   dialog.matches('azureCodeError', [
     function (session, args, next) {
       session.beginDialog('azureCodeError', args)
+      session.beginDialog('isSatisfied', args)
+    }
+  ])
+
+  dialog.matches('showSurvey', [
+    function (session, args, next) {
+      session.beginDialog('showSurvey', args)
+      session.beginDialog('isSatisfied', args)
+    }
+  ])
+
+  dialog.matches('qualifyingRules', [
+    function (session, args, next) {
+      session.beginDialog('qualifyingRules', args)
       session.beginDialog('isSatisfied', args)
     }
   ])
