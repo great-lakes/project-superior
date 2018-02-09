@@ -4,13 +4,14 @@ module.exports = function (bot, dialog) {
   require('../dialogs/botHelp')(bot) // done
   require('../dialogs/askQuestion')(bot)
   require('../dialogs/teamInfo')(bot)
-  require('../dialogs/techHelp')(bot)
+  require('../dialogs/techHelp')(bot) // done
   require('../dialogs/azureCode')(bot) // TODO: Gabby
   require('../dialogs/azureCodeError')(bot) // TODO: Gabby
   require('../dialogs/showSurvey')(bot) // done
   require('../dialogs/qualifyingRules')(bot)
   require('../dialogs/negativeComment')(bot) // done
   require('../dialogs/profanity')(bot) // done
+  require('../dialogs/praise')(bot)  // done
   require('../dialogs/endConvo')(bot) // done
   require('../dialogs/isSatisfied')(bot) // done
   require('../dialogs/mainMenu')(bot) // done
@@ -30,28 +31,24 @@ module.exports = function (bot, dialog) {
   dialog.matches('askQuestion', [
     function (session, args, next) {
       session.beginDialog('askQuestion', args)
-      session.beginDialog('isSatisfied', args)
     }
   ])
 
   dialog.matches('teamInfo', [
     function (session, args, next) {
       session.beginDialog('teamInfo', args)
-      session.beginDialog('isSatisfied', args)
     }
   ])
 
   dialog.matches('techHelp', [
     function (session, args, next) {
       session.beginDialog('techHelp', args)
-      session.beginDialog('isSatisfied', args)
     }
   ])
 
   dialog.matches('azureCode', [
     function (session, args, next) {
       session.beginDialog('azureCode', args)
-      session.beginDialog('isSatisfied', args)
     }
   ])
 
@@ -65,7 +62,6 @@ module.exports = function (bot, dialog) {
   dialog.matches('showSurvey', [
     function (session, args, next) {
       session.beginDialog('showSurvey', args)
-      session.beginDialog('isSatisfied', args)
     }
   ])
 
@@ -85,6 +81,12 @@ module.exports = function (bot, dialog) {
   dialog.matches('profanity', [
     function (session, args, next) {
       session.beginDialog('profanity', args)
+    }
+  ])
+
+  dialog.matches('praise', [
+    function (session, args, next) {
+      session.beginDialog('praise', args)
     }
   ])
 

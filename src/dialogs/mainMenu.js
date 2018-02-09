@@ -54,8 +54,15 @@ module.exports = function (bot) {
         return
       }
 
-      session.beginDialog(dialogName)
-      session.replaceDialog('isSatisfied')
+      // all synchronous dialogs
+      if (dialogName === 'qualifyingRules' ||
+        dialogName === 'azureCodeError') {
+        session.beginDialog(dialogName)
+        session.replaceDialog('isSatisfied')
+      }
+
+      // all asynchronous dialogs
+      session.replaceDialog(dialogName)
     }
   ])
 }

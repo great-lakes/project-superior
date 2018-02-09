@@ -3,43 +3,81 @@ const fetch = require('fetch')
 
 const url = process.env.GRAPHQL_API_URL
 
-const getSurveyData = () => {
+/**
+ * Returns promise which will contain query result.
+ *
+ * @param {*} query - GraphQL query
+ */
+const callAPI = (query) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve({
-        link: 'aka.ms/hackillinois18',
-        prize: 'GoPro Hero 6',
-        promo: 'Complete our survey at aka.ms/hackillinois18 and you could win a GoPro Hero 6!'
-      })
+      resolve(query)
     }, 1000)
   })
   // return fetch(
+  //   url,
+  //   {
+  //     method: 'POST',
+  //     body: JSON.stringify(query),
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     }
+  //   }
   // ).then(res => res.json())
 }
 
+const getSurveyData = () => {
+  const query = {
+    link: 'aka.ms/hackillinois18',
+    prize: 'GoPro Hero 6',
+    promo: 'Complete our survey at aka.ms/hackillinois18 and you could win a GoPro Hero 6!'
+  }
+  return callAPI(query)
+}
+
 const setStudentData = (studentData) => {
-// studentData.name
-// studentData.email
-// etc..
+  // studentData.name
+  // studentData.email
+  // etc..
+  const query = {
+
+  }
+  return callAPI(query)
 }
 
 const isEmailUnique = (userEmail) => {
-  return fetch(
-    url,
-    {
-      method: 'POST',
-      body: JSON.stringify(userEmail),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }
-  ).then(res => res.json())
-}
-const getAzureCode = () => {
-  return fetch(
+  const query = {
 
-  ).then(res => res.json())
-  .then(azureCode => azureCode)
+  }
+  return callAPI(query)
+}
+
+const getAzureCode = () => {
+  const query = {
+
+  }
+  return callAPI(query)
+}
+
+const getTeamData = () => {
+  const query = {
+
+  }
+  return callAPI(query)
+}
+
+const getTechData = () => {
+  const query = [{
+    name: 'Bot Framework',
+    help_text: 'Bots are a great way to create artificial human interaction with your users. Combine bots with Cognitive Services and you will be able to create an intelligent chatbot capable of understanding language intentions and much more.',
+    doc_link: 'https://dev.botframework.gettingStarted.example'
+  },
+    {
+      name: 'Cognitive Services',
+      help_text: 'AI is pretty cool.. use this',
+      doc_link: 'https://CogServ.example'
+    }]
+  return callAPI(query)
 }
 
 module.exports = {
@@ -73,5 +111,19 @@ module.exports = {
    *
    * @return {string} Promise
    */
-  getAzureCode
+  getAzureCode,
+
+  /**
+   * Retrieve mentor's data who is present at event
+   *
+   * @return {{ string: name, string[]: skills, string: bio }[]} Promise
+   */
+  getTeamData,
+
+  /**
+   * Retrieve qualifying tech data with docs and descriptions
+   *
+   * @return {{ string: name, string: help_text, string: doc_link }[]}
+   */
+  getTechData
 }

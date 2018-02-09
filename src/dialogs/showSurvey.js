@@ -14,7 +14,9 @@ module.exports = function (bot) {
         let message = 'Thanks for taking the survey. You will be entered to win: ' + surveyObj.prize + '!\n\n'
         message += 'We will notify the winner via email near the closing ceremony - Good Luck!'
         session.send(message)
-        session.endDialog()
+
+        // remember to ask here since async dialog
+        session.replaceDialog('isSatisfied')
       })
     }
   ])
