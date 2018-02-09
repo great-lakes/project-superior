@@ -6,30 +6,16 @@ module.exports = function (bot) {
       // set completeSurvey flag so we do not advertise on endConvo
       session.conversationData.completeSurvey = true
 
-      // TODO pull from API: Prize and Link
-      // return getSurveyData()
-      // .then((surveyObj) => {
-      //   session.send('Here is the link to the survey: ' + surveyObj.link)
-      //   session.sendTyping()
+      return getSurveyData()
+      .then((surveyObj) => {
+        session.send('Here is the link to the survey: ' + surveyObj.link)
+        session.sendTyping()
 
-      //   let message = 'Thanks for taking the survey. You will be entered to win: ' + surveyObj.prize + '!\n\n'
-      //   message += 'We will notify the winner via email near the closing ceremony - Good Luck!'
-      //   session.send(message)
-      //   session.endDialog()
-      // })
-      const surveyObj = {
-        link: 'aka.ms/hackillinois18',
-        prize: 'GoPro Hero 6',
-        promo: 'Complete our survey at aka.ms/hackillinois18 and you could win a GoPro Hero 6!'
-      }
-
-      session.send('Here is the link to the survey: ' + surveyObj.link)
-      session.sendTyping()
-
-      let message = 'Thanks for taking the survey. You will be entered to win: ' + surveyObj.prize + '!\n\n'
-      message += 'We will notify the winner via email near the closing ceremony - Good Luck!'
-      session.send(message)
-      session.endDialog()
+        let message = 'Thanks for taking the survey. You will be entered to win: ' + surveyObj.prize + '!\n\n'
+        message += 'We will notify the winner via email near the closing ceremony - Good Luck!'
+        session.send(message)
+        session.endDialog()
+      })
     }
   ])
 }

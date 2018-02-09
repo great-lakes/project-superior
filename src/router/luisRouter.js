@@ -1,19 +1,19 @@
 module.exports = function (bot, dialog) {
   // Require and Register dialogs
-  require('../dialogs/greeting')(bot)
-  require('../dialogs/botHelp')(bot)
+  require('../dialogs/greeting')(bot) // done
+  require('../dialogs/botHelp')(bot) // done
   require('../dialogs/askQuestion')(bot)
   require('../dialogs/teamInfo')(bot)
   require('../dialogs/techHelp')(bot)
-  require('../dialogs/azureCode')(bot)
-  require('../dialogs/azureCodeError')(bot)
-  require('../dialogs/showSurvey')(bot)
+  require('../dialogs/azureCode')(bot) // TODO: Gabby
+  require('../dialogs/azureCodeError')(bot) // TODO: Gabby
+  require('../dialogs/showSurvey')(bot) // done
   require('../dialogs/qualifyingRules')(bot)
-  require('../dialogs/negativeComment')(bot)
-  require('../dialogs/profanity')(bot)
-  require('../dialogs/endConvo')(bot)
-  require('../dialogs/isSatisfied')(bot)
-  require('../dialogs/mainMenu')(bot)
+  require('../dialogs/negativeComment')(bot) // done
+  require('../dialogs/profanity')(bot) // done
+  require('../dialogs/endConvo')(bot) // done
+  require('../dialogs/isSatisfied')(bot) // done
+  require('../dialogs/mainMenu')(bot) // done
 
   dialog.matches('greeting', [
     function (session, args, next) {
