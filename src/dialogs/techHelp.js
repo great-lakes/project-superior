@@ -6,6 +6,8 @@ module.exports = function (bot) {
     function (session, args, next) {
       session.sendTyping()
 
+      // check if luis identified
+
       return getTechData()
       .then((result) => {
         session.conversationData.techData = result

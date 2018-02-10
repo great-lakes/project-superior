@@ -2,13 +2,13 @@ module.exports = function (bot, dialog) {
   // Require and Register dialogs
   require('../dialogs/greeting')(bot) // done
   require('../dialogs/botHelp')(bot) // done
-  require('../dialogs/askQuestion')(bot)
-  require('../dialogs/teamInfo')(bot)
-  require('../dialogs/techHelp')(bot) // done
+  require('../dialogs/askQuestion')(bot) // TODO:Kevin
+  require('../dialogs/teamInfo')(bot) // TODO:Kevin
+  require('../dialogs/techHelp')(bot) // Implement LUIS entities
   require('../dialogs/azureCode')(bot) // TODO: Gabby
   require('../dialogs/azureCodeError')(bot) // TODO: Gabby
   require('../dialogs/showSurvey')(bot) // done
-  require('../dialogs/qualifyingRules')(bot)
+  require('../dialogs/qualifyingRules')(bot) // TODO:Kevin
   require('../dialogs/negativeComment')(bot) // done
   require('../dialogs/profanity')(bot) // done
   require('../dialogs/praise')(bot)  // done

@@ -60,9 +60,11 @@ const getAzureCode = () => {
 }
 
 const getTeamData = () => {
-  const query = {
-
-  }
+  const query = [{
+    name: 'Kevin',
+    skills: ['skill1', 'skill2', 'skill3'],
+    bio: "He's pretty cool"
+  }]
   return callAPI(query)
 }
 
