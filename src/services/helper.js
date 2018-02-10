@@ -70,15 +70,18 @@ const getTeamData = () => {
 
 const getTechData = () => {
   const query = [{
+    name: 'Azure',
+    help_text: 'azure is cool.',
+    doc_link: 'https://azure.example'
+  }, {
     name: 'Bot Framework',
     help_text: 'Bots are a great way to create artificial human interaction with your users. Combine bots with Cognitive Services and you will be able to create an intelligent chatbot capable of understanding language intentions and much more.',
     doc_link: 'https://dev.botframework.gettingStarted.example'
-  },
-    {
-      name: 'Cognitive Services',
-      help_text: 'AI is pretty cool.. use this',
-      doc_link: 'https://CogServ.example'
-    }]
+  }, {
+    name: 'Cognitive Services',
+    help_text: 'AI is pretty cool.. use this',
+    doc_link: 'https://CogServ.example'
+  }]
   return callAPI(query)
 }
 

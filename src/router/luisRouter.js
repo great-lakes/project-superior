@@ -4,7 +4,7 @@ module.exports = function (bot, dialog) {
   require('../dialogs/botHelp')(bot) // done
   require('../dialogs/askQuestion')(bot) // TODO:Kevin
   require('../dialogs/teamInfo')(bot) // TODO:Kevin
-  require('../dialogs/techHelp')(bot) // Implement LUIS entities
+  require('../dialogs/techHelp')(bot) // done
   require('../dialogs/azureCode')(bot) // TODO: Gabby
   require('../dialogs/azureCodeError')(bot) // TODO: Gabby
   require('../dialogs/showSurvey')(bot) // done

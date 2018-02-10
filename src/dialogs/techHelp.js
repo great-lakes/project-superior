@@ -6,28 +6,46 @@ module.exports = function (bot) {
     function (session, args, next) {
       session.sendTyping()
 
-      // check if luis identified
-
       return getTechData()
       .then((result) => {
         session.conversationData.techData = result
-        builder.Prompts.choice(
-          session,
-          'I have info and docs on these technologies:',
-          result.map(tech => tech.name)
-        )
+
+        // check if luis identified
+        let techEntity = builder.EntityRecognizer.findEntity(args.entities, 'technology')
+        if (techEntity) {
+          // luis entity exists, use this value
+          let techResolution = techEntity.resolution.values[0]
+          next({ response: { entity: techResolution } })
+        }
+
+        if (!techEntity) {
+          // no luis entity, prompt user choices
+          builder.Prompts.choice(
+            session,
+            'I have info and docs on these technologies:',
+            result.map(tech => tech.name)
+          )
+        }
       })
     },
     function (session, args, next) {
+      // load data from conversationData
       let techData = session.conversationData.techData
-      let message = techData[args.response.index].name + ':\n\n'
-      message += techData[args.response.index].help_text
+      // find index of selected technology
+      // important: luis entity should match db data
+      let techIndex = techData.findIndex((element) => {
+        return (element.name.toLowerCase() === args.response.entity.toLowerCase())
+      })
+
+      // display info to user
+      let message = techData[techIndex].name + ':\n\n'
+      message += techData[techIndex].help_text
       session.send(message)
 
       session.sendTyping()
 
       message = 'Check out these docs to get started and find more info:\n\n'
-      message += techData[args.response.index].doc_link
+      message += techData[techIndex].doc_link
       session.send(message)
 
       session.sendTyping()
