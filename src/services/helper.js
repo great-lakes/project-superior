@@ -64,6 +64,10 @@ const getTeamData = () => {
     name: 'Kevin',
     skills: ['skill1', 'skill2', 'skill3'],
     bio: "He's pretty cool"
+  }, {
+    name: 'Gabby',
+    skills: ['skill1', 'skill2', 'skill3'],
+    bio: "She's pretty cool"
   }]
   return callAPI(query)
 }
