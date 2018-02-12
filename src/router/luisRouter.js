@@ -2,7 +2,7 @@ module.exports = function (bot, dialog) {
   // Require and Register dialogs
   require('../dialogs/greeting')(bot) // done
   require('../dialogs/botHelp')(bot) // done
-  require('../dialogs/askQuestion')(bot) // TODO:Kevin
+  require('../dialogs/askQuestion')(bot) // done
   require('../dialogs/teamInfo')(bot) // done
   require('../dialogs/techHelp')(bot) // done
   require('../dialogs/azureCode')(bot) // TODO: Gabby
