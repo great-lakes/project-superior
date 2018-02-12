@@ -3,12 +3,12 @@ module.exports = function (bot, dialog) {
   require('../dialogs/greeting')(bot) // done
   require('../dialogs/botHelp')(bot) // done
   require('../dialogs/askQuestion')(bot) // TODO:Kevin
-  require('../dialogs/teamInfo')(bot) // TODO:Kevin
+  require('../dialogs/teamInfo')(bot) // done
   require('../dialogs/techHelp')(bot) // done
   require('../dialogs/azureCode')(bot) // TODO: Gabby
   require('../dialogs/azureCodeError')(bot) // TODO: Gabby
   require('../dialogs/showSurvey')(bot) // done
-  require('../dialogs/qualifyingRules')(bot) // TODO:Kevin
+  require('../dialogs/qualifyingRules')(bot) // done
   require('../dialogs/negativeComment')(bot) // done
   require('../dialogs/profanity')(bot) // done
   require('../dialogs/praise')(bot)  // done
@@ -68,7 +68,6 @@ module.exports = function (bot, dialog) {
   dialog.matches('qualifyingRules', [
     function (session, args, next) {
       session.beginDialog('qualifyingRules', args)
-      session.beginDialog('isSatisfied', args)
     }
   ])
 

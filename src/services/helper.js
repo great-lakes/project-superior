@@ -52,6 +52,15 @@ const isEmailUnique = (userEmail) => {
   return callAPI(query)
 }
 
+const createQuestion = (questionData) => {
+  const query = {
+    // questionData.name
+    // questionData.email
+    // questionData.question
+  }
+  return callAPI(query)
+}
+
 const getAzureCode = () => {
   const query = {
 
@@ -89,6 +98,15 @@ const getTechData = () => {
   return callAPI(query)
 }
 
+const getCompetitionData = () => {
+  const query = {
+    hack_text: 'Interested in competing for the Best Use of Microsoft Technology? Our team of Microsoft hackers and mentors are ready to help and answer any questions you may have. From questions to our technology, to architecting and implementing your hack let us know how we can help!',
+    prize_text: 'Surface Pros for the winning team! (4-person limit)',
+    qualifyingTech_text: 'Azure, Bing, Bot Framework, Cognitive Services, HoloLens, Windows10. Check out docs.microsoft.com for resources and tools to get started with hacking Microsoft technology.'
+  }
+  return callAPI(query)
+}
+
 module.exports = {
   /**
    * Retrieve survey data
@@ -100,7 +118,7 @@ module.exports = {
   /**
    * Store user date in database
    *
-   * @param {{string: name, string: email}} studentData
+   * @param {{ string: name, string: email }} studentData
    *
    * @return {boolean} Promise
    */
@@ -114,6 +132,15 @@ module.exports = {
    * @return {boolean} Promise
    */
   isEmailUnique,
+
+  /**
+   * Store user question in database
+   *
+   * @param {{ string: name, string: email, string: question }}
+   *
+   * @return {boolean} Promise
+   */
+  createQuestion,
 
   /**
    * Retrieve new Azure Code
@@ -130,9 +157,15 @@ module.exports = {
   getTeamData,
 
   /**
-   * Retrieve qualifying tech data with docs and descriptions
+   * Retrieve tech data with docs and descriptions
    *
    * @return {{ string: name, string: help_text, string: doc_link }[]}
    */
-  getTechData
+  getTechData,
+
+  /**
+   * Retrieve Microsoft competition information
+   * Includes: Competition text, prizes and qualifying technology
+   */
+  getCompetitionData
 }

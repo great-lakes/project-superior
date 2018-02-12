@@ -55,8 +55,7 @@ module.exports = function (bot) {
       }
 
       // all synchronous dialogs
-      if (dialogName === 'qualifyingRules' ||
-        dialogName === 'azureCodeError') {
+      if (dialogName === 'azureCodeError') {
         session.beginDialog(dialogName)
         session.replaceDialog('isSatisfied')
       }

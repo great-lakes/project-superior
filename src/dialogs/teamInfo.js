@@ -8,7 +8,7 @@ module.exports = function (bot) {
       .then((result) => {
         session.conversationData.teamData = result
 
-        session.send('TODO: About the hack mentor team')
+        session.send('Our team of Microsoft hackers and mentors are ready to help and answer any questions you may have. From questions to our technology, to architecting and implementing your hack let us know how we can help!')
 
         builder.Prompts.choice(
           session,
@@ -18,7 +18,26 @@ module.exports = function (bot) {
       })
     },
     function (session, args, next) {
-      session.send(args.response.entity)
+      let teamData = session.conversationData.teamData
+      let teamindex = teamData.findIndex((element) => {
+        return (element.name.toLowerCase() === args.response.entity.toLowerCase())
+      })
+
+      // Skills
+      let message = teamData[teamindex].name + "'s skills include: "
+      teamData[teamindex].skills.forEach(skill => {
+        message += skill + ', '
+      })
+      // remove trailing ', '
+      message = message.slice(0, -2)
+      session.send(message)
+
+      // Bio
+      message = 'Short Bio:\n\n'
+      message += teamData[teamindex].bio + '\n\n'
+      message += 'The entire team will be around all weekend hacking, make sure to chat with us!'
+      session.send(message)
+
       // remember to ask here since async dialog
       session.replaceDialog('isSatisfied')
     }
