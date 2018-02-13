@@ -44,6 +44,7 @@ const createQuestion = (questionData) => {
   // questionData.name
   // questionData.email
   // questionData.question
+  // hackathon id
 
   const query = {
   }
@@ -55,7 +56,6 @@ const getAzureCode = () => {
   // email
   // project name
   // project description
-  // project tech
   const query = {
 
   }
