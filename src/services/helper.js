@@ -23,6 +23,10 @@ const callAPI = (query, variables) => {
     if (json.errors) {
       throw new Error('Request failed')
     }
+    // TODO: Implement
+    // if (!json.azureCode) {
+    //   throw new Error('No azure code')
+    // }
     return json
   })
 }
