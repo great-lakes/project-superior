@@ -6,16 +6,32 @@ const choicesArr = [
     choiceText: 'Get Azure code'
   },
   {
-    dialogName: 'techHelp',
-    choiceText: 'Get technology help'
-  },
-  {
     dialogName: 'teamInfo',
     choiceText: 'Get to know the Microsoft Team'
   },
   {
+    dialogName: 'techHelp',
+    choiceText: 'Get technology help'
+  },
+  {
     dialogName: 'askQuestion',
     choiceText: 'Ask the team a question'
+  },
+  {
+    dialogName: 'qualifyingRules',
+    choiceText: 'See qualifying rules and prizes'
+  },
+  {
+    dialogName: 'careers',
+    choiceText: 'Learn more about careers at Microsoft'
+  },
+  {
+    dialogName: 'mentorSessions',
+    choiceText: 'Microsoft technical sessions and office hours'
+  },
+  {
+    dialogName: 'showSurvey',
+    choiceText: 'Take the survey to enter raffle'
   },
   {
     dialogName: 'azureCodeError',
@@ -42,12 +58,19 @@ module.exports = function (bot) {
       const { dialogName } = choicesArr[choiceIndex]
 
       if (dialogName === 'endConvo') {
-        session.replaceDialog('endConvo')
+        session.replaceDialog(dialogName)
         return
       }
 
-      session.beginDialog(dialogName)
-      session.replaceDialog('isSatisfied')
+      // all synchronous dialogs
+      if (dialogName === 'azureCodeError' || dialogName === 'careers') {
+        session.beginDialog(dialogName)
+        session.replaceDialog('isSatisfied')
+        return
+      }
+
+      // all asynchronous dialogs
+      session.replaceDialog(dialogName)
     }
   ])
 }

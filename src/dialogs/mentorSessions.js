@@ -1,7 +1,7 @@
 module.exports = function (bot) {
-  bot.dialog('azureCode', [
+  bot.dialog('mentorSessions', [
     function (session, args, next) {
-      session.send('Hello, I can help you get Azure Codes!')
+      session.send('Hello.. mentorSessions!')
 
       // remember to ask here since async dialog
       session.replaceDialog('isSatisfied')

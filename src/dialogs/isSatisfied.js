@@ -5,7 +5,7 @@ module.exports = function (bot) {
     function (session, args, next) {
       builder.Prompts.confirm(
         session,
-        'Can I do anything else for you?'
+        'Can I do anything else for you? (yes/no)'
       )
     },
     function (session, args, next) {
