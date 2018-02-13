@@ -25,17 +25,11 @@ module.exports = function (bot) {
     },
     function (session, args, next) {
       let teamData = session.conversationData.teamData
-      let teamindex = teamData.findIndex((element) => {
-        return (element.name.toLowerCase() === args.response.entity.toLowerCase())
-      })
+      let teamindex = teamData.findIndex(element => element.name === args.response.entity)
 
       // Skills
       let message = teamData[teamindex].name + "'s skills include: "
-      teamData[teamindex].skills.forEach(skill => {
-        message += skill + ', '
-      })
-      // remove trailing ', '
-      message = message.slice(0, -2)
+      message += teamData[teamindex].skills.join(', ')
       session.send(message)
 
       // Bio
