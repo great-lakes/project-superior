@@ -15,6 +15,7 @@ module.exports = function (bot) {
         if (techEntity) {
           // luis entity exists, use this value
           let techResolution = techEntity.resolution.values[0]
+          // same shape as arguments result from prompt choice
           next({ response: { entity: techResolution } })
         }
 
@@ -39,9 +40,8 @@ module.exports = function (bot) {
       let techData = session.conversationData.techData
       // find index of selected technology
       // important: luis entity should match db data
-      let techIndex = techData.findIndex((element) => {
-        return (element.name.toLowerCase() === args.response.entity.toLowerCase())
-      })
+      const entity = args.response.entity.toLowerCase()
+      let techIndex = techData.findIndex(element => element.name.toLowerCase() === entity)
 
       // display info to user
       let message = techData[techIndex].name + ':\n\n'
