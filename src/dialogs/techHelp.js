@@ -27,6 +27,12 @@ module.exports = function (bot) {
           )
         }
       })
+      .catch(() => {
+        let message = "I'm sorry, I can't find any information on technical documents and examples.\n\n"
+        message += 'Come by the booth to talk to the Microsoft mentors. They will help you with your hack!'
+        session.send(message)
+        session.replaceDialog('isSatisfied')
+      })
     },
     function (session, args, next) {
       // load data from conversationData

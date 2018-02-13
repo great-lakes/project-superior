@@ -1,20 +1,22 @@
 module.exports = function (bot, dialog) {
   // Require and Register dialogs
-  require('../dialogs/greeting')(bot) // done
-  require('../dialogs/botHelp')(bot) // done
-  require('../dialogs/askQuestion')(bot) // done
-  require('../dialogs/teamInfo')(bot) // done
-  require('../dialogs/techHelp')(bot) // done
-  require('../dialogs/azureCode')(bot) // TODO: Gabby
-  require('../dialogs/azureCodeError')(bot) // TODO: Gabby
-  require('../dialogs/showSurvey')(bot) // done
-  require('../dialogs/qualifyingRules')(bot) // done
-  require('../dialogs/negativeComment')(bot) // done
-  require('../dialogs/profanity')(bot) // done
-  require('../dialogs/praise')(bot)  // done
-  require('../dialogs/endConvo')(bot) // done
-  require('../dialogs/isSatisfied')(bot) // done
-  require('../dialogs/mainMenu')(bot) // done
+  require('../dialogs/greeting')(bot)
+  require('../dialogs/botHelp')(bot)
+  require('../dialogs/askQuestion')(bot)
+  require('../dialogs/teamInfo')(bot)
+  require('../dialogs/techHelp')(bot)
+  require('../dialogs/azureCode')(bot) // TODO: Gabby: implementation
+  require('../dialogs/azureCodeError')(bot) // TODO: Gabby: implementation
+  require('../dialogs/showSurvey')(bot)
+  require('../dialogs/qualifyingRules')(bot)
+  require('../dialogs/careers')(bot) // TODO: implementation
+  require('../dialogs/mentorSessions')(bot) // TODO: implementation
+  require('../dialogs/negativeComment')(bot)
+  require('../dialogs/profanity')(bot)
+  require('../dialogs/praise')(bot)
+  require('../dialogs/endConvo')(bot)
+  require('../dialogs/isSatisfied')(bot)
+  require('../dialogs/mainMenu')(bot)
 
   dialog.matches('greeting', [
     function (session, args, next) {
@@ -68,6 +70,18 @@ module.exports = function (bot, dialog) {
   dialog.matches('qualifyingRules', [
     function (session, args, next) {
       session.beginDialog('qualifyingRules', args)
+    }
+  ])
+
+  dialog.matches('careers', [
+    function (session, args, next) {
+      session.beginDialog('careers', args)
+    }
+  ])
+
+  dialog.matches('mentorSessions', [
+    function (session, args, next) {
+      session.beginDialog('mentorSessions', args)
     }
   ])
 

@@ -22,6 +22,14 @@ const choicesArr = [
     choiceText: 'See qualifying rules and prizes'
   },
   {
+    dialogName: 'career',
+    choiceText: 'Learn more about careers at Microsoft'
+  },
+  {
+    dialogName: 'mentorSessions',
+    choiceText: 'Microsoft technical sessions and office hours'
+  },
+  {
     dialogName: 'showSurvey',
     choiceText: 'Take the survey to enter raffle'
   },

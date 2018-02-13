@@ -13,6 +13,9 @@ module.exports = function (bot) {
             session.send(surveyObj.promo)
             session.endDialog()
           })
+          .catch(() => {
+            session.endDialog()
+          })
       }
 
       session.endDialog()
