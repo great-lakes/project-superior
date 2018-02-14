@@ -22,6 +22,14 @@ const choicesArr = [
     choiceText: 'See qualifying rules and prizes'
   },
   {
+    dialogName: 'careers',
+    choiceText: 'Learn more about careers at Microsoft'
+  },
+  {
+    dialogName: 'mentorSessions',
+    choiceText: 'Microsoft technical sessions and office hours'
+  },
+  {
     dialogName: 'showSurvey',
     choiceText: 'Take the survey to enter raffle'
   },
@@ -50,14 +58,15 @@ module.exports = function (bot) {
       const { dialogName } = choicesArr[choiceIndex]
 
       if (dialogName === 'endConvo') {
-        session.replaceDialog('endConvo')
+        session.replaceDialog(dialogName)
         return
       }
 
       // all synchronous dialogs
-      if (dialogName === 'azureCodeError') {
+      if (dialogName === 'azureCodeError' || dialogName === 'careers') {
         session.beginDialog(dialogName)
         session.replaceDialog('isSatisfied')
+        return
       }
 
       // all asynchronous dialogs

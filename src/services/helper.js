@@ -1,5 +1,6 @@
 require('dotenv').config()
-const fetch = require('fetch')
+const { mentors } = require('../graphql/queries')
+const fetch = require('node-fetch')
 
 const url = process.env.GRAPHQL_API_URL
 
@@ -8,22 +9,26 @@ const url = process.env.GRAPHQL_API_URL
  *
  * @param {*} query - GraphQL query
  */
-const callAPI = (query) => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(query)
-    }, 1000)
+const callAPI = (query, variables) => {
+  return fetch(url,
+    {
+      method: 'POST',
+      body: JSON.stringify({ query, variables }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  ).then(res => res.json())
+  .then(json => {
+    if (json.errors) {
+      throw new Error('Request failed')
+    }
+    // TODO: Implement
+    // if (!json.azureCode) {
+    //   throw new Error('No azure code')
+    // }
+    return json
   })
-  // return fetch(
-  //   url,
-  //   {
-  //     method: 'POST',
-  //     body: JSON.stringify(query),
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     }
-  //   }
-  // ).then(res => res.json())
 }
 
 const getSurveyData = () => {
@@ -35,33 +40,22 @@ const getSurveyData = () => {
   return callAPI(query)
 }
 
-const setStudentData = (studentData) => {
-  // studentData.name
-  // studentData.email
-  // etc..
-  const query = {
-
-  }
-  return callAPI(query)
-}
-
-const isEmailUnique = (userEmail) => {
-  const query = {
-
-  }
-  return callAPI(query)
-}
-
 const createQuestion = (questionData) => {
+  // questionData.name
+  // questionData.email
+  // questionData.question
+
   const query = {
-    // questionData.name
-    // questionData.email
-    // questionData.question
   }
   return callAPI(query)
 }
 
 const getAzureCode = () => {
+  // name
+  // email
+  // project name
+  // project description
+  // project tech
   const query = {
 
   }
@@ -69,16 +63,9 @@ const getAzureCode = () => {
 }
 
 const getTeamData = () => {
-  const query = [{
-    name: 'Kevin',
-    skills: ['skill1', 'skill2', 'skill3'],
-    bio: "He's pretty cool"
-  }, {
-    name: 'Gabby',
-    skills: ['skill1', 'skill2', 'skill3'],
-    bio: "She's pretty cool"
-  }]
-  return callAPI(query)
+  const query = mentors
+  const variables = { 'hackathonId': process.env.HACKATHON_ID }
+  return callAPI(query, variables)
 }
 
 const getTechData = () => {
@@ -114,24 +101,6 @@ module.exports = {
    * @return {{ string: link, string: prize, string: promo }} Promise
    */
   getSurveyData,
-
-  /**
-   * Store user date in database
-   *
-   * @param {{ string: name, string: email }} studentData
-   *
-   * @return {boolean} Promise
-   */
-  setStudentData,
-
-  /**
-   * Determine if user's email is unique within Azure Code Table
-   *
-   * @param {string} userEmail
-   *
-   * @return {boolean} Promise
-   */
-  isEmailUnique,
 
   /**
    * Store user question in database

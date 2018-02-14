@@ -16,20 +16,20 @@ module.exports = function (bot) {
           result.map(mentor => mentor.name)
         )
       })
+      .catch(() => {
+        let message = 'Our team of Microsoft hackers and mentors are ready to help and answer any questions you may have. From questions to our technology, to architecting and implementing your hack let us know how we can help!\n\n'
+        message += "Unfortunately I'm having trouble finding information on the team. Come stop by the booth and meet them in person!"
+        session.send(message)
+        session.replaceDialog('isSatisfied')
+      })
     },
     function (session, args, next) {
       let teamData = session.conversationData.teamData
-      let teamindex = teamData.findIndex((element) => {
-        return (element.name.toLowerCase() === args.response.entity.toLowerCase())
-      })
+      let teamindex = teamData.findIndex(element => element.name === args.response.entity)
 
       // Skills
       let message = teamData[teamindex].name + "'s skills include: "
-      teamData[teamindex].skills.forEach(skill => {
-        message += skill + ', '
-      })
-      // remove trailing ', '
-      message = message.slice(0, -2)
+      message += teamData[teamindex].skills.join(', ')
       session.send(message)
 
       // Bio

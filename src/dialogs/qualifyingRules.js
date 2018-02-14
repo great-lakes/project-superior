@@ -21,6 +21,11 @@ module.exports = function (bot) {
         // remember to ask here since async dialog
         session.replaceDialog('isSatisfied')
       })
+      .catch(() => {
+        let message = "Sorry, I don't remember this info. Please come by the booth to find out more about the prizes and qualifying Microsoft tech."
+        session.send(message)
+        session.replaceDialog('isSatisfied')
+      })
     }
   ])
 }

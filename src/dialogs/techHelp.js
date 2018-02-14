@@ -15,6 +15,7 @@ module.exports = function (bot) {
         if (techEntity) {
           // luis entity exists, use this value
           let techResolution = techEntity.resolution.values[0]
+          // same shape as arguments result from prompt choice
           next({ response: { entity: techResolution } })
         }
 
@@ -27,15 +28,20 @@ module.exports = function (bot) {
           )
         }
       })
+      .catch(() => {
+        let message = "I'm sorry, I can't find any information on technical documents and examples.\n\n"
+        message += 'Come by the booth to talk to the Microsoft mentors. They will help you with your hack!'
+        session.send(message)
+        session.replaceDialog('isSatisfied')
+      })
     },
     function (session, args, next) {
       // load data from conversationData
       let techData = session.conversationData.techData
       // find index of selected technology
       // important: luis entity should match db data
-      let techIndex = techData.findIndex((element) => {
-        return (element.name.toLowerCase() === args.response.entity.toLowerCase())
-      })
+      const entity = args.response.entity.toLowerCase()
+      let techIndex = techData.findIndex(element => element.name.toLowerCase() === entity)
 
       // display info to user
       let message = techData[techIndex].name + ':\n\n'
