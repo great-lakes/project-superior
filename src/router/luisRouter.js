@@ -9,7 +9,7 @@ module.exports = function (bot, dialog) {
   require('../dialogs/azureCodeError')(bot) // TODO: Gabby: implementation
   require('../dialogs/showSurvey')(bot)
   require('../dialogs/qualifyingRules')(bot)
-  require('../dialogs/careers')(bot) // TODO: implementation
+  require('../dialogs/careers')(bot)
   require('../dialogs/mentorSessions')(bot) // TODO: implementation
   require('../dialogs/negativeComment')(bot)
   require('../dialogs/profanity')(bot)
