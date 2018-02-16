@@ -14,7 +14,7 @@ module.exports = function (bot) {
     },
     function (session, args, next) {
       session.conversationData.questionData = {}
-      session.conversationData.questionData.name = args.response.entity
+      session.conversationData.questionData.name = args.response
 
       // get email
       builder.Prompts.text(
@@ -23,7 +23,7 @@ module.exports = function (bot) {
       )
     },
     function (session, args, next) {
-      session.conversationData.questionData.email = args.response.entity
+      session.conversationData.questionData.email = args.response
 
       // get question
       builder.Prompts.text(
@@ -32,7 +32,7 @@ module.exports = function (bot) {
       )
     },
     function (session, args, next) {
-      session.conversationData.questionData.question = args.response.entity
+      session.conversationData.questionData.question = args.response
 
       let questionData = session.conversationData.questionData
       createQuestion(questionData)

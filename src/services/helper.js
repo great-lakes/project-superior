@@ -1,8 +1,9 @@
 require('dotenv').config()
-const { mentors } = require('../graphql/queries')
+const queries = require('../graphql/queries')
 const fetch = require('node-fetch')
 
 const url = process.env.GRAPHQL_API_URL
+const hackathonId = process.env.HACKATHON_ID
 
 /**
  * Returns promise which will contain query result.
@@ -23,10 +24,6 @@ const callAPI = (query, variables) => {
     if (json.errors) {
       throw new Error('Request failed')
     }
-    // TODO: Implement
-    // if (!json.azureCode) {
-    //   throw new Error('No azure code')
-    // }
     return json
   })
 }
@@ -37,35 +34,37 @@ const getSurveyData = () => {
     prize: 'GoPro Hero 6',
     promo: 'Complete our survey at aka.ms/hackillinois18 and you could win a GoPro Hero 6!'
   }
-  return callAPI(query)
+  // return callAPI(query)
 }
 
-const createQuestion = (questionData) => {
-  // questionData.name
-  // questionData.email
-  // questionData.question
-  // hackathon id
-
-  const query = {
+const createQuestion = ({name: studentName, email: studentEmail, question}) => {
+  const {newQuestion} = queries
+  const variables = {
+    hackathonId,
+    studentEmail,
+    studentName,
+    question
   }
-  return callAPI(query)
+  return callAPI(newQuestion, variables)
 }
 
-const getAzureCode = () => {
-  // name
-  // email
-  // project name
-  // project description
-  const query = {
-
+const getAzureCode = ({studentName, studentEmail, projectName, projectDescription}) => {
+  const {getAzureCode} = queries
+  const variables = {
+    hackathonId,
+    studentName,
+    studentEmail,
+    projectName,
+    projectDescription
   }
-  return callAPI(query)
+  return callAPI(getAzureCode, variables)
+    .then(response => response.data.issueUnclaimedAzurecode ? response.data.issueUnclaimedAzurecode.code : null) // just respond with the code
 }
 
 const getTeamData = () => {
-  const query = mentors
+  const { mentors } = queries
   const variables = { 'hackathonId': process.env.HACKATHON_ID }
-  return callAPI(query, variables)
+  return callAPI(mentors, variables)
 }
 
 const getTechData = () => {
