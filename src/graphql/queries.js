@@ -33,3 +33,27 @@ mutation newInquiry($hackathonId: ID!, $studentName:String!, $studentEmail: Stri
   }
 }
 `
+
+exports.getSurvey =
+`
+query getSurvey($hackathonId: ID!) {
+  hackathon(id: $hackathonId) {
+    survey_promo
+    survey_link
+    survey_prize
+  }
+}
+`
+
+exports.getTechnologies =
+`
+query getTechnologies($hackathonId: ID!) {
+  hackathon(id: $hackathonId) {
+    technologies {
+      name
+      doc_link
+      help_text
+    }
+  }
+}
+`

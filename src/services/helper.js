@@ -29,12 +29,13 @@ const callAPI = (query, variables) => {
 }
 
 const getSurveyData = () => {
-  const query = {
-    link: 'aka.ms/hackillinois18',
-    prize: 'GoPro Hero 6',
-    promo: 'Complete our survey at aka.ms/hackillinois18 and you could win a GoPro Hero 6!'
-  }
-  // return callAPI(query)
+  const {getSurvey} = queries
+  return callAPI(getSurvey, {hackathonId})
+    .then(data => ({
+      prize: data.data.hackathon.survey_prize,
+      link: data.data.hackathon.survey_link,
+      promo: data.data.hackathon.survey_promo
+    }))
 }
 
 const createQuestion = ({name: studentName, email: studentEmail, question}) => {
@@ -68,29 +69,19 @@ const getTeamData = () => {
 }
 
 const getTechData = () => {
-  const query = [{
-    name: 'Azure',
-    help_text: 'azure is cool.',
-    doc_link: 'https://azure.example'
-  }, {
-    name: 'Bot Framework',
-    help_text: 'Bots are a great way to create artificial human interaction with your users. Combine bots with Cognitive Services and you will be able to create an intelligent chatbot capable of understanding language intentions and much more.',
-    doc_link: 'https://dev.botframework.gettingStarted.example'
-  }, {
-    name: 'Cognitive Services',
-    help_text: 'AI is pretty cool.. use this',
-    doc_link: 'https://CogServ.example'
-  }]
-  return callAPI(query)
+  const {getTechnologies} = queries
+  const variables = { 'hackathonId': process.env.HACKATHON_ID }
+
+  return callAPI(getTechnologies, variables).then(data => data.data.hackathon.technologies)
 }
 
 const getCompetitionData = () => {
-  const query = {
+  const result = {
     hack_text: 'Interested in competing for the Best Use of Microsoft Technology? Our team of Microsoft hackers and mentors are ready to help and answer any questions you may have. From questions to our technology, to architecting and implementing your hack let us know how we can help!',
     prize_text: 'Surface Pros for the winning team! (4-person limit)',
     qualifyingTech_text: 'Azure, Bing, Bot Framework, Cognitive Services, HoloLens, Windows10. Check out docs.microsoft.com for resources and tools to get started with hacking Microsoft technology.'
   }
-  return callAPI(query)
+  return result
 }
 
 module.exports = {
