@@ -1,5 +1,6 @@
 var builder = require('botbuilder')
-var helper = require('../services/helper.js')
+var {getAzureCode, getSurveyData} = require('../services/helper.js')
+var { sendMail } = require('../services/sendEmail.js')
 
 module.exports = function (bot) {
   bot.dialog('azureCode', [
@@ -20,25 +21,16 @@ module.exports = function (bot) {
     },
     function (session, args) {
       session.dialogData.projectDescription = args.response
-      return getAzureCode(session.dialogData)
-      .then(azureCode => {
+      Promise.all([getAzureCode(session.dialogData), getSurveyData()])
+      .then(([azureCode, {prize, link}]) => {
         if (azureCode) {
+          sendMail(session.dialogData.studentEmail, azureCode, link, prize)
           session.send('Your Azure Code has been sent to your email.')
           session.replaceDialog('isSatisfied')
-        // send email
           return
         }
         session.send('Sorry we are out of Azure Codes :/ Come by the booth for more help.')
       })
     }
   ])
-}
-
-function getAzureCode ({studentName, studentEmail, projectName, projectDescription}) {
-  return helper.getAzureCode({
-    studentName,
-    studentEmail,
-    projectName,
-    projectDescription
-  })
 }
