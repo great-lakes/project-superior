@@ -24,6 +24,7 @@
     "dotenv": "^4.0.0",
     "node-fetch": "^2.0.0",
     "nodemailer": "^4.4.2",
+    "nodemailer-sparkpost-transport": "^2.0.0",
     "restify": "^6.3.4"
   }
 }
