@@ -1,5 +1,5 @@
 module.exports = function (bot) {
-  bot.dialog('career', [
+  bot.dialog('careers', [
     function (session, args, next) {
       session.send('So, you want to begin a career with Microsoft? Excellent choice! From internships to fulltime positions, visit https://careers.microsoft.com/ for more information on programs and opportunities for students.')
       session.sendTyping()
