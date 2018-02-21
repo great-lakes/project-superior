@@ -8,7 +8,7 @@ module.exports = function (bot) {
       .then((result) => {
         session.conversationData.teamData = result
 
-        session.send('Our team of Microsoft hackers and mentors are ready to help and answer any questions you may have. From questions to our technology, to architecting and implementing your hack let us know how we can help!')
+        session.send('Our team of Microsoft hackers and mentors are ready to help and answer any questions you may have. From questions about our technology to architecting and implementing your hack, let us know how we can help!')
 
         builder.Prompts.choice(
           session,
@@ -17,7 +17,7 @@ module.exports = function (bot) {
         )
       })
       .catch(() => {
-        let message = 'Our team of Microsoft hackers and mentors are ready to help and answer any questions you may have. From questions to our technology, to architecting and implementing your hack let us know how we can help!\n\n'
+        let message = 'Our team of Microsoft hackers and mentors are ready to help and answer any questions you may have. From questions about our technology to architecting and implementing your hack, let us know how we can help!\n\n'
         message += "Unfortunately I'm having trouble finding information on the team. Come stop by the booth and meet them in person!"
         session.send(message)
         session.replaceDialog('isSatisfied')
@@ -35,7 +35,7 @@ module.exports = function (bot) {
       // Bio
       message = 'Short Bio:\n\n'
       message += teamData[teamindex].bio + '\n\n'
-      message += 'The entire team will be around all weekend hacking, make sure to chat with us!'
+      message += 'The entire team will be around all weekend hacking, so make sure to chat with us!'
       session.send(message)
 
       // remember to ask here since async dialog

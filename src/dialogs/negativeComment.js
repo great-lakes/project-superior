@@ -1,5 +1,5 @@
 const phrasesArr = [
-  "That's not nice, if you need help ask me for a 'main menu' or 'Hanna help'.",
+  "I'm sorry. If you need help, ask me for a 'main menu' or 'Hanna help'.",
   "I'm trying to help you. Come by the booth for more assistance.",
   "I want to help you, please don't be mean!",
   'Sorry, I am doing my best. Trying asking me again or come by the booth to chat.',
