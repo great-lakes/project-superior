@@ -30,7 +30,7 @@ module.exports = function (bot) {
       })
       .catch(() => {
         let message = "I'm sorry, I can't find any information on technical documents and examples.\n\n"
-        message += 'Come by the booth to talk to the Microsoft mentors. They will help you with your hack!'
+        message += 'Come by the booth to talk to the Microsoft mentors. They may be able to help you with your hack!'
         session.send(message)
         session.replaceDialog('isSatisfied')
       })
@@ -56,7 +56,7 @@ module.exports = function (bot) {
 
       session.sendTyping()
 
-      session.send("I hope this helps, if not feel free to come by the booth or say 'submit a question'")
+      session.send("I hope this helps. If not, feel free to come by the booth, or say, 'submit a question'.")
 
       // remember to ask here since async dialog
       session.replaceDialog('isSatisfied')
