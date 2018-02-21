@@ -34,6 +34,21 @@ mutation newInquiry($hackathonId: ID!, $studentName:String!, $studentEmail: Stri
 }
 `
 
+exports.getSessions =
+`
+query getSessions($hackathonId: ID!) {
+  hackathon(id: $hackathonId) {
+    sessions {
+      name
+      time
+      day
+      description
+      place
+    }
+  }
+}
+`
+
 exports.getSurvey =
 `
 query getSurvey($hackathonId: ID!) {

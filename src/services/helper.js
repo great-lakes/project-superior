@@ -66,13 +66,26 @@ const getTeamData = () => {
   const { mentors } = queries
   const variables = { 'hackathonId': process.env.HACKATHON_ID }
   return callAPI(mentors, variables)
+    .then((response) => {
+      return response.data.hackathon.mentors || []
+    })
+}
+
+const getSessionData = () => {
+  const { getSessions } = queries
+  const variables = { 'hackathonId': process.env.HACKATHON_ID }
+  return callAPI(getSessions, variables)
+    .then((response) => {
+      return response.data.hackathon.sessions || []
+    })
 }
 
 const getTechData = () => {
   const {getTechnologies} = queries
   const variables = { 'hackathonId': process.env.HACKATHON_ID }
 
-  return callAPI(getTechnologies, variables).then(data => data.data.hackathon.technologies)
+  return callAPI(getTechnologies, variables)
+    .then(data => data.data.hackathon.technologies)
 }
 
 const getCompetitionData = () => {
@@ -122,6 +135,11 @@ module.exports = {
    */
   getTechData,
 
+  /**
+   * Retrieve session data
+   * @return {{ string: name, string: day, string: time, string: description}}
+   */
+  getSessionData,
   /**
    * Retrieve Microsoft competition information
    * Includes: Competition text, prizes and qualifying technology
