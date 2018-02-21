@@ -29,7 +29,7 @@ module.exports = function (bot) {
 
       // Skills
       let message = teamData[teamindex].name + "'s skills include: "
-      message += teamData[teamindex].skills.join(', ')
+      message += teamData[teamindex].skills.map(_ => _.name).join(', ')
       session.send(message)
 
       // Bio

@@ -67,7 +67,14 @@ const getTeamData = () => {
   const variables = { 'hackathonId': process.env.HACKATHON_ID }
   return callAPI(mentors, variables)
     .then((response) => {
-      return response.data.hackathon.mentors || []
+      const mentors = response.data.hackathon.mentors || []
+      return mentors.map((mentor) => {
+        return {
+          skills: mentor.skills,
+          name: mentor.first_name + ' ' + mentor.last_name,
+          bio: mentor.bio
+        }
+      })
     })
 }
 
