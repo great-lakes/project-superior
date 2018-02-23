@@ -63,7 +63,7 @@ module.exports = function (bot) {
       }
 
       // all synchronous dialogs
-      if (dialogName === 'azureCodeError' || dialogName === 'careers') {
+      if (dialogName === 'azureCodeError') {
         session.beginDialog(dialogName)
         session.replaceDialog('isSatisfied')
         return
