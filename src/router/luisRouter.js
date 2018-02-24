@@ -5,18 +5,19 @@ module.exports = function (bot, dialog) {
   require('../dialogs/askQuestion')(bot)
   require('../dialogs/teamInfo')(bot)
   require('../dialogs/techHelp')(bot)
-  require('../dialogs/azureCode')(bot) // TODO: Gabby: implementation
-  require('../dialogs/azureCodeError')(bot) // TODO: Gabby: implementation
+  require('../dialogs/azureCode')(bot)
+  require('../dialogs/azureCodeError')(bot)
   require('../dialogs/showSurvey')(bot)
   require('../dialogs/qualifyingRules')(bot)
   require('../dialogs/careers')(bot)
-  require('../dialogs/mentorSessions')(bot) // TODO: implementation
+  require('../dialogs/mentorSessions')(bot)
   require('../dialogs/negativeComment')(bot)
   require('../dialogs/profanity')(bot)
   require('../dialogs/praise')(bot)
   require('../dialogs/endConvo')(bot)
   require('../dialogs/isSatisfied')(bot)
   require('../dialogs/mainMenu')(bot)
+  require('../dialogs/boothCatch')(bot)
 
   dialog.matches('greeting', [
     function (session, args, next) {
@@ -106,6 +107,12 @@ module.exports = function (bot, dialog) {
   dialog.matches('endConvo', [
     function (session, args, next) {
       session.beginDialog('endConvo', args)
+    }
+  ])
+
+  dialog.matches('boothCatch', [
+    function (session, args, next) {
+      session.beginDialog('boothCatch', args)
     }
   ])
 
