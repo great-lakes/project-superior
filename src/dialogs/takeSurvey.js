@@ -7,6 +7,7 @@ module.exports = function (bot) {
       // initialize survey data
       if (session.conversationData.takeSurvey) {
         next()
+        return
       }
 
       // first time entering `takeSurvey` dialog
@@ -16,6 +17,7 @@ module.exports = function (bot) {
           session.conversationData.surveyQuestions = questions
           session.conversationData.surveyQuestionCount = 0
           session.conversationData.surveyPrize = prize
+          session.conversationData.surveyResults = []
           // set takeSurvey flag so we do not advertise on endConvo
           session.conversationData.takeSurvey = true
           next()
@@ -28,7 +30,7 @@ module.exports = function (bot) {
     }, function (session, args, next) {
       // evaluate
       // check if all questions have been asked
-      if (session.conversationData.surveyQuestions === session.conversationData.surveyQuestionCount) {
+      if (session.conversationData.surveyQuestions.length === session.conversationData.surveyQuestionCount) {
         // survey complete
         let message = 'Thanks for taking the survey. You will be entered to win: ' + session.conversationData.surveyPrize + '!\n\n'
         message += 'We will notify the winner via email near the closing ceremony - Good Luck!'
@@ -40,16 +42,12 @@ module.exports = function (bot) {
         // remember to ask here since async dialog
         session.replaceDialog('isSatisfied')
       }
+      next()
     }, function (session, args, next) {
       // ask question
       const surveyQuestions = session.conversationData.surveyQuestions
       const surveyQuestionCount = session.conversationData.surveyQuestionCount
       const currentQuestion = surveyQuestions[surveyQuestionCount]
-
-      if (currentQuestion.option.type === 'text') {
-        session.sendTyping()
-        builder.Prompts.text(session, currentQuestion.prompt)
-      }
 
       if (currentQuestion.option.type === 'choice') {
         session.sendTyping()
@@ -58,10 +56,18 @@ module.exports = function (bot) {
           currentQuestion.prompt,
           currentQuestion.option.choices
         )
+        return
       }
+
+      session.sendTyping()
+      builder.Prompts.text(session, currentQuestion.prompt)
     }, function (session, args, next) {
       // capture response
-      session.conversationData.surveyResults[session.conversationData.surveyQuestionCount] = args.response
+      if (args.response.entity) {
+        session.conversationData.surveyResults[session.conversationData.surveyQuestionCount] = args.response.entity
+      } else {
+        session.conversationData.surveyResults[session.conversationData.surveyQuestionCount] = args.response
+      }
 
       // increment count
       session.conversationData.surveyQuestionCount++
