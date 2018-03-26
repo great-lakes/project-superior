@@ -28,14 +28,44 @@ const callAPI = (query, variables) => {
   })
 }
 
-const getSurveyData = () => {
+const getSurveyPromo = () => {
   const {getSurvey} = queries
   return callAPI(getSurvey, {hackathonId})
     .then(data => ({
       prize: data.data.hackathon.survey_prize,
-      link: data.data.hackathon.survey_link,
       promo: data.data.hackathon.survey_promo
     }))
+}
+
+const getSurveyData = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve({
+        prize: 'a GoPro 5',
+        questions: [{
+          prompt: 'What is your first name?',
+          option: {
+            type: 'text'
+          }
+        }, {
+          prompt: 'What school do you attend?',
+          option: {
+            type: 'text'
+          }
+        }, {
+          prompt: 'What is your primary area of study?',
+          option: {
+            type: 'choice',
+            choices: ['CS', 'CE', 'EE', 'ME', 'Math', 'Physics', 'Other']
+          }
+        }]
+      })
+    }, 3000)
+  })
+}
+
+const submitSurveyResult = (dataObject) => {
+
 }
 
 const createQuestion = ({name: studentName, email: studentEmail, question}) => {
@@ -106,11 +136,25 @@ const getCompetitionData = () => {
 
 module.exports = {
   /**
-   * Retrieve survey data
+   * Retrieve survey promotion data
    *
    * @return {{ string: link, string: prize, string: promo }} Promise
    */
+  getSurveyPromo,
+
+  /**
+   * Retrieve survey data to prompt user
+   *
+   * @return Promise
+   */
   getSurveyData,
+
+  /**
+   * Submit survey on user completion
+   *
+   * @return Promise
+   */
+  submitSurveyResult,
 
   /**
    * Store user question in database

@@ -54,7 +54,6 @@ exports.getSurvey =
 query getSurvey($hackathonId: ID!) {
   hackathon(id: $hackathonId) {
     survey_promo
-    survey_link
     survey_prize
   }
 }
