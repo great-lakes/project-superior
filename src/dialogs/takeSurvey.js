@@ -32,9 +32,19 @@ module.exports = function (bot) {
       // check if all questions have been asked
       if (session.conversationData.surveyQuestions.length === session.conversationData.surveyQuestionCount) {
         // survey complete
-        let message = 'Thanks for taking the survey. You will be entered to win: ' + session.conversationData.surveyPrize + '!\n\n'
-        message += 'We will notify the winner via email near the closing ceremony - Good Luck!'
-        session.send(message)
+        // let message = 'Thanks for taking the survey. You will be entered to win: ' + session.conversationData.surveyPrize + '!\n\n'
+        // message += 'We will notify the winner via email near the closing ceremony - Good Luck!'
+        // session.send(message)
+
+        let msgCard = new builder.Message(session)
+        msgCard.attachments([
+          new builder.HeroCard(session)
+            .title('Survey Complete: Thank You!')
+            .subtitle('Entered to win: ' + session.conversationData.surveyPrize + '!')
+            .text('We will notify the winner via email near the closing ceremony - Good Luck!')
+            .images([builder.CardImage.create(session, 'https://greatlakesblob.blob.core.windows.net/hannabot/ninja-cat-min.jpg')])
+        ])
+        session.send(msgCard)
 
         // submit to API
         submitSurveyResult(session.conversationData.surveyResults)
