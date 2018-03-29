@@ -71,3 +71,14 @@ query getTechnologies($hackathonId: ID!) {
   }
 }
 `
+
+exports.getSurveyData =
+`
+query getSurveyData($hackathonId: ID!) {
+  hackathon(id: $hackathonId) {
+    survey {
+
+    }
+  }
+}
+`

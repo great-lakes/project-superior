@@ -40,25 +40,12 @@ const getSurveyPromo = () => {
 const getSurveyData = () => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
+      let surveyPayload = require('./surveyPayload.json')
       resolve({
-        prize: 'a GoPro 5',
-        questions: [{
-          prompt: 'What is your first name?',
-          option: {
-            type: 'text'
-          }
-        }, {
-          prompt: 'What school do you attend?',
-          option: {
-            type: 'text'
-          }
-        }, {
-          prompt: 'What is your primary area of study?',
-          option: {
-            type: 'choice',
-            choices: ['CS', 'CE', 'EE', 'ME', 'Math', 'Physics', 'Other']
-          }
-        }]
+        title: surveyPayload.data.hackathon.surveys[0].title,
+        prize: surveyPayload.data.hackathon.surveys[0].prize,
+        promo: surveyPayload.data.hackathon.surveys[0].promo,
+        surveyQuestions: surveyPayload.data.hackathon.surveys[0].survey_questions
       })
     }, 3000)
   })

@@ -12,9 +12,21 @@ module.exports = function (bot) {
 
       // first time entering `takeSurvey` dialog
       return getSurveyData()
-        .then(({ prize, questions }) => {
+        .then(({ title, prize, promo, surveyQuestions }) => {
+          const registrationQuestions = [{
+            prompt: 'What is your name?',
+            option: {
+              type: 'text'
+            }
+          }, {
+            prompt: 'What is your email? (we want to contact you if you win!)',
+            option: {
+              type: 'text'
+            }
+          }]
+
           // store data and initialize count
-          session.conversationData.surveyQuestions = questions
+          session.conversationData.surveyQuestions = [...registrationQuestions, ...surveyQuestions.sort(q => q.order)]
           session.conversationData.surveyQuestionCount = 0
           session.conversationData.surveyPrize = prize
           session.conversationData.surveyResults = []
@@ -55,12 +67,12 @@ module.exports = function (bot) {
       const surveyQuestionCount = session.conversationData.surveyQuestionCount
       const currentQuestion = surveyQuestions[surveyQuestionCount]
 
-      if (currentQuestion.option.type === 'choice') {
+      if (currentQuestion.type === 'CHOICE') {
         session.sendTyping()
         builder.Prompts.choice(
           session,
           currentQuestion.prompt,
-          currentQuestion.option.choices
+          currentQuestion.survey_choices.sort(choice => choice.order)
         )
         return
       }
@@ -68,10 +80,20 @@ module.exports = function (bot) {
       session.sendTyping()
       builder.Prompts.text(session, currentQuestion.prompt)
     }, function (session, args, next) {
+      // first question: name
+      if (session.conversationData.surveyQuestionCount === 0) {
+        session.conversationData.name = args.response
+      }
+
+      // second question: email
+      if (session.conversationData.surveyQuestionCount === 1) {
+        session.conversationData.email = args.response
+      }
+
       // capture response
-      if (args.response.entity) {
+      if (args.response.entity) { // capture choice selected
         session.conversationData.surveyResults[session.conversationData.surveyQuestionCount] = args.response.entity
-      } else {
+      } else { // capture text entered
         session.conversationData.surveyResults[session.conversationData.surveyQuestionCount] = args.response
       }
 
