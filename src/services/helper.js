@@ -46,6 +46,8 @@ const getSurveyData = () => {
         return ({})
       }
       return ({
+        hackathonId: data.data.hackathon.id,
+        surveyId: data.data.hackathon.surveys[0].id,
         title: data.data.hackathon.surveys[0].title,
         prize: data.data.hackathon.surveys[0].prize,
         promo: data.data.hackathon.surveys[0].promo,
@@ -54,8 +56,10 @@ const getSurveyData = () => {
     })
 }
 
-const submitSurveyResult = (dataObject) => {
-
+const createSurveySubmission = (surveyResult) => {
+  const {createSurveySubmission} = queries
+  return callAPI(createSurveySubmission, {surveyResult})
+    .then(result => result)
 }
 
 const createQuestion = ({name: studentName, email: studentEmail, question}) => {
@@ -144,7 +148,7 @@ module.exports = {
    *
    * @return Promise
    */
-  submitSurveyResult,
+  createSurveySubmission,
 
   /**
    * Store user question in database

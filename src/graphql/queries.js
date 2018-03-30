@@ -76,21 +76,34 @@ query getSurveyInfo($hackathonId: ID!) {
 exports.getSurveyQuestions =
 `
 query getSurveyQuestions($hackathonId: ID!) {
-  hackathon(id: $hackathonId) {   
+  hackathon(id: $hackathonId) {
+    id
     surveys {
+      id
       title
       prize
       promo
       survey_questions {
+        id
         prompt
         type
         order
         survey_choices {
+          id
           value
           order
         }
       }
     }
+  }
+}
+`
+
+exports.createSurveySubmission =
+`
+mutation createSurveySubmission($surveyResult: SurveyResult) {
+  createSurveySubmission(surveyResult: $surveyResult) {
+    result
   }
 }
 `
