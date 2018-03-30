@@ -29,26 +29,29 @@ const callAPI = (query, variables) => {
 }
 
 const getSurveyPromo = () => {
-  const {getSurvey} = queries
-  return callAPI(getSurvey, {hackathonId})
+  const {getSurveyInfo} = queries
+  return callAPI(getSurveyInfo, {hackathonId})
     .then(data => ({
       prize: data.data.hackathon.survey_prize,
-      promo: data.data.hackathon.survey_promo
+      promo: data.data.hackathon.survey_promo,
+      link: data.data.hackathon.survey_link
     }))
 }
 
 const getSurveyData = () => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      let surveyPayload = require('./surveyPayload.json')
-      resolve({
-        title: surveyPayload.data.hackathon.surveys[0].title,
-        prize: surveyPayload.data.hackathon.surveys[0].prize,
-        promo: surveyPayload.data.hackathon.surveys[0].promo,
-        surveyQuestions: surveyPayload.data.hackathon.surveys[0].survey_questions
+  const {getSurveyQuestions} = queries
+  return callAPI(getSurveyQuestions, {hackathonId})
+    .then(data => {
+      if (data.data.hackathon.surveys.length === 0) {
+        return ({})
+      }
+      return ({
+        title: data.data.hackathon.surveys[0].title,
+        prize: data.data.hackathon.surveys[0].prize,
+        promo: data.data.hackathon.surveys[0].promo,
+        surveyQuestions: data.data.hackathon.surveys[0].survey_questions
       })
-    }, 3000)
-  })
+    })
 }
 
 const submitSurveyResult = (dataObject) => {

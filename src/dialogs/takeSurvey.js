@@ -12,16 +12,23 @@ module.exports = function (bot) {
 
       // first time entering `takeSurvey` dialog
       return getSurveyData()
-        .then(({ title, prize, promo, surveyQuestions }) => {
+        .then(surveyObj => {
+          if (Object.keys(surveyObj).length === 0) {
+            let message = "Sorry, I don't seem to remember the questions... Please come by the booth and chat with us to find out more."
+            session.send(message)
+            session.replaceDialog('isSatisfied')
+          }
+
+          const { prize, surveyQuestions } = surveyObj
           const registrationQuestions = [{
             prompt: 'What is your name?',
             option: {
-              type: 'text'
+              type: 'TEXT'
             }
           }, {
             prompt: 'What is your email? (we want to contact you if you win!)',
             option: {
-              type: 'text'
+              type: 'TEXT'
             }
           }]
 
