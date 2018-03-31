@@ -28,14 +28,38 @@ const callAPI = (query, variables) => {
   })
 }
 
-const getSurveyData = () => {
-  const {getSurvey} = queries
-  return callAPI(getSurvey, {hackathonId})
+const getSurveyPromo = () => {
+  const {getSurveyInfo} = queries
+  return callAPI(getSurveyInfo, {hackathonId})
     .then(data => ({
       prize: data.data.hackathon.survey_prize,
-      link: data.data.hackathon.survey_link,
-      promo: data.data.hackathon.survey_promo
+      promo: data.data.hackathon.survey_promo,
+      link: data.data.hackathon.survey_link
     }))
+}
+
+const getSurveyData = () => {
+  const {getSurveyQuestions} = queries
+  return callAPI(getSurveyQuestions, {hackathonId})
+    .then(data => {
+      if (data.data.hackathon.surveys.length === 0) {
+        return ({})
+      }
+      return ({
+        hackathonId: data.data.hackathon.id,
+        surveyId: data.data.hackathon.surveys[0].id,
+        title: data.data.hackathon.surveys[0].title,
+        prize: data.data.hackathon.surveys[0].prize,
+        promo: data.data.hackathon.surveys[0].promo,
+        surveyQuestions: data.data.hackathon.surveys[0].survey_questions
+      })
+    })
+}
+
+const createSurveySubmission = (surveyResult) => {
+  const {createSurveySubmission} = queries
+  return callAPI(createSurveySubmission, {surveyResult})
+    .then(result => result)
 }
 
 const createQuestion = ({name: studentName, email: studentEmail, question}) => {
@@ -106,11 +130,25 @@ const getCompetitionData = () => {
 
 module.exports = {
   /**
-   * Retrieve survey data
+   * Retrieve survey promotion data
    *
    * @return {{ string: link, string: prize, string: promo }} Promise
    */
+  getSurveyPromo,
+
+  /**
+   * Retrieve survey data to prompt user
+   *
+   * @return Promise
+   */
   getSurveyData,
+
+  /**
+   * Submit survey on user completion
+   *
+   * @return Promise
+   */
+  createSurveySubmission,
 
   /**
    * Store user question in database

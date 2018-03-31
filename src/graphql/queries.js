@@ -49,17 +49,6 @@ query getSessions($hackathonId: ID!) {
 }
 `
 
-exports.getSurvey =
-`
-query getSurvey($hackathonId: ID!) {
-  hackathon(id: $hackathonId) {
-    survey_promo
-    survey_link
-    survey_prize
-  }
-}
-`
-
 exports.getTechnologies =
 `
 query getTechnologies($hackathonId: ID!) {
@@ -69,6 +58,52 @@ query getTechnologies($hackathonId: ID!) {
       doc_link
       help_text
     }
+  }
+}
+`
+
+exports.getSurveyInfo =
+`
+query getSurveyInfo($hackathonId: ID!) {
+  hackathon(id: $hackathonId) {
+    survey_promo
+    survey_prize
+    survey_link
+  }
+}
+`
+
+exports.getSurveyQuestions =
+`
+query getSurveyQuestions($hackathonId: ID!) {
+  hackathon(id: $hackathonId) {
+    id
+    surveys {
+      id
+      title
+      prize
+      promo
+      survey_questions {
+        id
+        prompt
+        type
+        order
+        survey_choices {
+          id
+          value
+          order
+        }
+      }
+    }
+  }
+}
+`
+
+exports.createSurveySubmission =
+`
+mutation createSurveySubmission($surveyResult: SurveyResult) {
+  createSurveySubmission(surveyResult: $surveyResult) {
+    result
   }
 }
 `

@@ -30,7 +30,7 @@ const choicesArr = [
     choiceText: 'Microsoft technical sessions and office hours'
   },
   {
-    dialogName: 'showSurvey',
+    dialogName: 'takeSurvey',
     choiceText: 'Take the survey to enter raffle'
   },
   {

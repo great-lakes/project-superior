@@ -7,7 +7,7 @@ module.exports = function (bot, dialog) {
   require('../dialogs/techHelp')(bot)
   require('../dialogs/azureCode')(bot)
   require('../dialogs/azureCodeError')(bot)
-  require('../dialogs/showSurvey')(bot)
+  require('../dialogs/takeSurvey')(bot)
   require('../dialogs/qualifyingRules')(bot)
   require('../dialogs/careers')(bot)
   require('../dialogs/mentorSessions')(bot)
@@ -62,9 +62,9 @@ module.exports = function (bot, dialog) {
     }
   ])
 
-  dialog.matches('showSurvey', [
+  dialog.matches('takeSurvey', [
     function (session, args, next) {
-      session.beginDialog('showSurvey', args)
+      session.beginDialog('takeSurvey', args)
     }
   ])
 
