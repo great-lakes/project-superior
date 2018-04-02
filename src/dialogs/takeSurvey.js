@@ -5,7 +5,8 @@ module.exports = function (bot) {
   bot.dialog('takeSurvey', [
     function (session, args, next) {
       // initialize survey data
-      if (session.conversationData.takeSurvey) {
+      // continue if we have survey data loaded - if not, call API
+      if (session.conversationData.survey) {
         next()
         return
       }
@@ -41,8 +42,6 @@ module.exports = function (bot) {
           session.conversationData.survey.surveyQuestionCount = 0
           session.conversationData.survey.surveyPrize = prize
           session.conversationData.survey.surveyResults = []
-          // set takeSurvey flag so we do not advertise on endConvo
-          session.conversationData.takeSurvey = true
           next()
         })
         .catch(() => {
@@ -77,6 +76,8 @@ module.exports = function (bot) {
                   .images([builder.CardImage.create(session, 'https://greatlakesblob.blob.core.windows.net/hannabot/ninja-cat-min.jpg')])
               ])
               session.send(msgCard)
+              // set takeSurvey flag so we do not advertise on endConvo
+              session.conversationData.takeSurvey = true
             }
 
             // remember to ask here since async dialog
